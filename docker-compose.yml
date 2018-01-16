@@ -1,0 +1,33 @@
+version: "3"
+services:
+    web:
+        image: nginx:1.10.2
+        ports:
+            - "8080:80"
+        volumes:
+            - ./config/site.conf:/etc/nginx/conf.d/site.conf
+            - ./code/pdf-print:/var/www/html
+        networks:
+            - frontend
+    php:
+        build: .
+        volumes:
+            - ./code/pdf-print:/var/www/html
+        networks:
+            - frontend
+            - backend
+
+    memcached:
+        image: "memcached"
+        ports:
+            - "11211:11211"
+        entrypoint:
+            - memcached
+            - -m 1024
+        restart: always        
+        networks:
+            - backend
+
+networks:
+    frontend:
+    backend:
