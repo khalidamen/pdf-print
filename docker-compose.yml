@@ -3,7 +3,7 @@ services:
     web:
         image: nginx:1.10.2
         ports:
-            - "8080:80"
+            - "80:80"
         volumes:
             - ./config/site.conf:/etc/nginx/conf.d/site.conf
             - ./code/pdf-print:/var/www/html
